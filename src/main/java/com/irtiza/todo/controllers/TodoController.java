@@ -2,6 +2,7 @@ package com.irtiza.todo.controllers;
 
 import com.irtiza.todo.dtos.CreateTodoDto;
 import com.irtiza.todo.dtos.TodoResponseDto;
+import com.irtiza.todo.requests.UpdateTodoRequest;
 import com.irtiza.todo.services.TodoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +39,23 @@ public class TodoController {
     @GetMapping("/{id}")
     public ResponseEntity<TodoResponseDto> findTodoById(@PathVariable String id) {
         return ResponseEntity.ok().body(this.todoService.findById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<TodoResponseDto> updateTodo(@PathVariable String id,
+                                                      @RequestBody UpdateTodoRequest updateTodoRequest) {
+        return ResponseEntity.ok().body(this.todoService.updateOne(id, updateTodoRequest));
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<String> deleteTodo(@PathVariable String id) {
+        this.todoService.deleteOne(id);
+        return  ResponseEntity.accepted().body("Todo deleted successfully");
+    }
+
+    @PatchMapping("{id}")
+    public ResponseEntity<TodoResponseDto> patchTodo(@PathVariable String id,
+                                                     @RequestBody UpdateTodoRequest updateTodo) {
+        return ResponseEntity.ok().body(this.todoService.patchOne(id, updateTodo));
     }
 }
