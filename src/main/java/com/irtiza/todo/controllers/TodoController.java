@@ -1,6 +1,6 @@
 package com.irtiza.todo.controllers;
 
-import com.irtiza.todo.dtos.CreateTodoDto;
+import com.irtiza.todo.requests.CreateTodoRequest;
 import com.irtiza.todo.dtos.TodoResponseDto;
 import com.irtiza.todo.requests.UpdateTodoRequest;
 import com.irtiza.todo.services.TodoService;
@@ -25,9 +25,9 @@ public class TodoController {
 
 
     @PostMapping
-    public ResponseEntity<TodoResponseDto> createNewTodo(@RequestBody CreateTodoDto createTodoDto) {
+    public ResponseEntity<TodoResponseDto> createNewTodo(@RequestBody CreateTodoRequest createTodoRequest) {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(this.todoService.createTodo(createTodoDto));
+                .body(this.todoService.createTodo(createTodoRequest));
     }
 
     @GetMapping

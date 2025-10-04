@@ -1,8 +1,16 @@
 package com.irtiza.todo.requests;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 public class UpdateTodoRequest {
+    @NotBlank
+    @Size(max = 50)
     private String name;
+
+    @Size(max = 255)
     private String description;
+
     private boolean isCompleted;
 
     public UpdateTodoRequest(String name, String description, boolean isCompleted) {

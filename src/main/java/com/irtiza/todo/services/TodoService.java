@@ -1,29 +1,28 @@
 package com.irtiza.todo.services;
 
 import com.irtiza.todo.daos.TodoRepository;
-import com.irtiza.todo.dtos.CreateTodoDto;
+import com.irtiza.todo.requests.CreateTodoRequest;
 import com.irtiza.todo.dtos.TodoResponseDto;
 import com.irtiza.todo.entities.Todo;
 import com.irtiza.todo.requests.UpdateTodoRequest;
 import com.irtiza.todo.utils.DtoPatcher;
-import jakarta.persistence.EntityManager;
+//import jakarta.persistence.EntityManager;
 import jakarta.persistence.Transient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 @Service
 public class TodoService {
 
     private final TodoRepository todoRepository;
-    private final EntityManager entityManager;
+//    private final EntityManager entityManager;
 
     @Autowired
-    public TodoService(TodoRepository todoRepository, EntityManager entityManager) {
+    public TodoService(TodoRepository todoRepository) {
         this.todoRepository = todoRepository;
-        this.entityManager = entityManager;
+//        this.entityManager = entityManager;
     }
 
     public List<TodoResponseDto> getTodos() {
@@ -38,8 +37,8 @@ public class TodoService {
     }
 
     @Transient
-    public TodoResponseDto createTodo(CreateTodoDto createTodoDto) {
-        Todo todo = new Todo(createTodoDto.getName(), createTodoDto.getDescription(), createTodoDto.isCompleted());
+    public TodoResponseDto createTodo(CreateTodoRequest createTodoRequest) {
+        Todo todo = new Todo(createTodoRequest.getName(), createTodoRequest.getDescription(), createTodoRequest.isCompleted());
          Todo newTodo = this.todoRepository.save(todo);
          return new TodoResponseDto(newTodo.getId(), newTodo.getName(), newTodo.getDescription(), newTodo.isCompleted());
     }
