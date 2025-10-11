@@ -50,13 +50,13 @@ public class TodoService {
     }
 
     public TodoResponseDto findById(String id) {
-        Todo todo = this.todoRepository.findById(Integer.valueOf(id))
+        Todo todo = this.todoRepository.findById(Long.valueOf(id))
                 .orElseThrow(() -> new IllegalArgumentException("todo with this id does not exist"));
         return new TodoResponseDto(todo.getId(), todo.getName(), todo.getDescription(), todo.isCompleted());
     }
 
     public TodoResponseDto updateOne(String id, UpdateTodoRequest updateTodoRequest) {
-        Todo todo = this.todoRepository.findById(Integer.valueOf(id))
+        Todo todo = this.todoRepository.findById(Long.valueOf(id))
                 .orElseThrow(() -> new IllegalArgumentException("Invalid todo id"));
 
         todo.setName(updateTodoRequest.getName());
@@ -74,11 +74,11 @@ public class TodoService {
     }
 
     public void deleteOne(String id) {
-        this.todoRepository.deleteById(Integer.valueOf(id));
+        this.todoRepository.deleteById(Long.valueOf(id));
     }
 
     public TodoResponseDto patchOne(String id, UpdateTodoRequest updateTodoRequest) {
-        Todo todo = this.todoRepository.findById(Integer.valueOf(id))
+        Todo todo = this.todoRepository.findById(Long.valueOf(id))
                 .orElseThrow(() -> new IllegalArgumentException("Invalid todo id"));
         DtoPatcher.patchFields(updateTodoRequest, todo);
         Todo updatedTodo = this.todoRepository.save(todo);
