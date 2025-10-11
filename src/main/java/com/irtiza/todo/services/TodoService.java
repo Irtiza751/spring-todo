@@ -1,6 +1,6 @@
 package com.irtiza.todo.services;
 
-import com.irtiza.todo.daos.TodoRepository;
+import com.irtiza.todo.repository.TodoRepository;
 import com.irtiza.todo.requests.CreateTodoRequest;
 import com.irtiza.todo.dtos.TodoResponseDto;
 import com.irtiza.todo.entities.Todo;
@@ -38,7 +38,13 @@ public class TodoService {
 
     @Transient
     public TodoResponseDto createTodo(CreateTodoRequest createTodoRequest) {
-        Todo todo = new Todo(createTodoRequest.getName(), createTodoRequest.getDescription(), createTodoRequest.isCompleted());
+        Todo todo = Todo.builder()
+                .userId(createTodoRequest.getUserId())
+                .name(createTodoRequest.getName())
+                .description(createTodoRequest.getDescription())
+                .isCompleted(createTodoRequest.isCompleted())
+                .build();
+
          Todo newTodo = this.todoRepository.save(todo);
          return new TodoResponseDto(newTodo.getId(), newTodo.getName(), newTodo.getDescription(), newTodo.isCompleted());
     }

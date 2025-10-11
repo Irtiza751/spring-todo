@@ -1,4 +1,4 @@
-package com.irtiza.todo.daos;
+package com.irtiza.todo.repository;
 
 import com.irtiza.todo.entities.Todo;
 import org.springframework.data.jpa.repository.JpaRepository;
