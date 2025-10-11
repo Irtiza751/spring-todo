@@ -26,4 +26,9 @@ public class UserController {
     public ResponseEntity<List<UserResponseDto>> findAllUsers() {
         return ResponseEntity.ok(this.userService.findAllUsers());
     }
+
+    @GetMapping("{id}")
+    public ResponseEntity<UserResponseDto> findUserById(@PathVariable Long id) {
+        return ResponseEntity.ok(this.userService.findUserById(id));
+    }
 }

@@ -34,4 +34,10 @@ public class UserService {
                 .map(user -> this.modelMapper.map(user, UserResponseDto.class))
                 .toList();
     }
+
+    public UserResponseDto findUserById(Long id) {
+        User user = this.userRepository.findById(id)
+                .orElseThrow();
+        return this.modelMapper.map(user, UserResponseDto.class);
+    }
 }
