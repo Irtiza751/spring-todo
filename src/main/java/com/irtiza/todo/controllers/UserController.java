@@ -1,7 +1,9 @@
 package com.irtiza.todo.controllers;
 
+import com.irtiza.todo.dtos.GeneralResponseDto;
 import com.irtiza.todo.dtos.UserResponseDto;
 import com.irtiza.todo.requests.CreateUserRequest;
+import com.irtiza.todo.requests.UpdateUserRequest;
 import com.irtiza.todo.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,5 +32,16 @@ public class UserController {
     @GetMapping("{id}")
     public ResponseEntity<UserResponseDto> findUserById(@PathVariable Long id) {
         return ResponseEntity.ok(this.userService.findUserById(id));
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<UserResponseDto> updateUser(@PathVariable Long id,
+                                                      @RequestBody UpdateUserRequest updateUserRequest) {
+        return ResponseEntity.ok(this.userService.updateUser(id, updateUserRequest));
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<GeneralResponseDto> deleteUser(@PathVariable Long id) {
+        return ResponseEntity.accepted().body(this.userService.deleteUser(id));
     }
 }

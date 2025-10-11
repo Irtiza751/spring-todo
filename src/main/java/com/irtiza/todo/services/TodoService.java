@@ -6,8 +6,7 @@ import com.irtiza.todo.dtos.TodoResponseDto;
 import com.irtiza.todo.entities.Todo;
 import com.irtiza.todo.requests.UpdateTodoRequest;
 import com.irtiza.todo.utils.DtoPatcher;
-//import jakarta.persistence.EntityManager;
-import jakarta.persistence.Transient;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +35,7 @@ public class TodoService {
                 .toList();
     }
 
-    @Transient
+    @Transactional
     public TodoResponseDto createTodo(CreateTodoRequest createTodoRequest) {
         Todo todo = Todo.builder()
                 .userId(createTodoRequest.getUserId())
