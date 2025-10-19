@@ -7,6 +7,7 @@ import com.irtiza.todo.entities.User;
 import com.irtiza.todo.repository.UserRepository;
 import com.irtiza.todo.requests.CreateUserRequest;
 import com.irtiza.todo.requests.SigninRequest;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,6 +26,7 @@ public class AuthService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
+    @Transactional
     public AuthResponseDto signupUser(CreateUserRequest signupUser) {
         String encodedPassword = passwordEncoder.encode(signupUser.getPassword());
         User newUser = User.builder()
@@ -40,6 +42,7 @@ public class AuthService {
         return AuthResponseDto.builder().token(token).build();
     }
 
+    @Transactional
     public AuthResponseDto siginUser(SigninRequest signinRequest) {
         String username = signinRequest.getUsername();
         String password = signinRequest.getPassword();
