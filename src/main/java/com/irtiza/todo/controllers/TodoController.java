@@ -1,5 +1,7 @@
 package com.irtiza.todo.controllers;
 
+import com.irtiza.todo.dtos.NotFoundErrorResponse;
+import com.irtiza.todo.exceptions.NotFoundException;
 import com.irtiza.todo.requests.CreateTodoRequest;
 import com.irtiza.todo.dtos.TodoResponseDto;
 import com.irtiza.todo.requests.UpdateTodoRequest;
@@ -10,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.rmi.StubNotFoundException;
 import java.util.List;
 
 @Tag(name = "Todo Controller", description = "Handle todos operations")
@@ -58,4 +61,6 @@ public class TodoController {
                                                      @RequestBody UpdateTodoRequest updateTodo) {
         return ResponseEntity.ok().body(this.todoService.patchOne(id, updateTodo));
     }
+
+
 }

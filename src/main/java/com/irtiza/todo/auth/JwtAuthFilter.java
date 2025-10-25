@@ -36,7 +36,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         final String header = request.getHeader("Authorization");
         final String token;
         if(header == null || !header.startsWith("Bearer ")) {
-            System.out.println("No header passed!");
+            System.out.println("No header passed! " + header);
             filterChain.doFilter(request, response);
             return;
         }

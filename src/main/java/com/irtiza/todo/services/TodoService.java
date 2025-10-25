@@ -1,5 +1,6 @@
 package com.irtiza.todo.services;
 
+import com.irtiza.todo.exceptions.NotFoundException;
 import com.irtiza.todo.repository.TodoRepository;
 import com.irtiza.todo.requests.CreateTodoRequest;
 import com.irtiza.todo.dtos.TodoResponseDto;
@@ -50,7 +51,7 @@ public class TodoService {
 
     public TodoResponseDto findById(String id) {
         Todo todo = this.todoRepository.findById(Long.valueOf(id))
-                .orElseThrow(() -> new IllegalArgumentException("todo with this id does not exist"));
+                .orElseThrow(() -> new NotFoundException("todo not found"));
         return new TodoResponseDto(todo.getId(), todo.getName(), todo.getDescription(), todo.isCompleted());
     }
 
